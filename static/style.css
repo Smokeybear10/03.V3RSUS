@@ -1386,7 +1386,7 @@ input[type="text"]:focus {
 @media (max-width: 768px) {
     .hero {
         padding: 3rem 1.5rem;
-        min-height: calc(100vh - var(--nav-height));
+        min-height: 100svh;
     }
 
     .title-mark { font-size: clamp(3rem, 16vw, 5rem); }
