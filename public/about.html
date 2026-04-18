@@ -3,147 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V3RSUS // About</title>
-    <meta name="description" content="Built by Thomas Ou. Fullstack engineer at UPenn building AI-powered tools.">
+    <title>V3RSUS — About, How It Works, References</title>
+    <meta name="description" content="About V3RSUS — the team, the methodology, the stack, and references.">
     <link rel="canonical" href="https://v3rsus.vercel.app/about.html">
-    <meta property="og:title" content="V3RSUS // About">
-    <meta property="og:description" content="Built by Thomas Ou. Fullstack engineer at UPenn building AI-powered tools.">
+    <meta property="og:title" content="V3RSUS — About">
+    <meta property="og:description" content="About V3RSUS — the team, the methodology, the stack, and references.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://v3rsus.vercel.app/about.html">
     <meta property="og:site_name" content="V3RSUS">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="home.css">
+    <script src="scroll-anim.js" defer></script>
 </head>
 <body>
 
-<!-- TOP STATUS BAR -->
-<div class="topbar">
-    <span><span class="live-dot"></span>V3RSUS//ABOUT &middot; COLOPHON &middot; CREDITS</span>
-    <span>
-        <a href="/">HOME</a>
-        &middot;
-        <a href="predict.html">PREDICTOR</a>
-        &middot;
-        <a href="methodology.html">METHODOLOGY</a>
-        &middot;
-        <a href="about.html">ABOUT</a>
-    </span>
-</div>
+<!-- MASTHEAD -->
+<header class="mast">
+    <a href="/" class="mast-brand">V3RSUS</a>
+    <nav class="mast-nav">
+        <a href="/">Home</a>
+        <a href="predict.html">Predictor</a>
+        <a href="about.html" class="current">About</a>
+    </nav>
+</header>
 
 
 <!-- HERO -->
-<section class="hero-poster">
-    <span class="hero-paper-tag">Colophon <small>who built this</small></span>
+<section class="hero">
+    <div class="hero-label">
+        <span class="hero-label-sym">&sect;</span>
+        <span class="hero-label-id">0.0</span>
+        <span>Colophon &middot; Who Built This</span>
+    </div>
 
     <h1 class="hero-title">
-        Thomas Ou.<br><em>Fullstack</em><br>Engineer.
+        Thomas Ou.<br>
+        <em>Fullstack</em><br>
+        engineer.
     </h1>
 
-    <p class="hero-subtitle">
-        I&rsquo;m a fullstack engineer at UPenn studying computer science. I like building things that sit at the intersection of data, design, and real-world problems. V3RSUS started as a class project for CIS 5450 with Aakash Jha and Kevin Jiang, and turned into something I wanted to actually ship. Outside of code, I follow MMA way too closely and I&rsquo;m always looking for the next hard problem to work on.
+    <p class="hero-standfirst">
+        I&rsquo;m studying computer science at UPenn. I like building things at the intersection of data, design, and real problems. V3RSUS started as a class project for CIS 5450 with Aakash Jha and Kevin Jiang and turned into something I wanted to ship.
     </p>
 
     <div class="hero-actions">
-        <a href="https://github.com/Smokeybear10" target="_blank" rel="noopener" class="btn-brutal">GitHub &rarr;</a>
-        <a href="https://www.linkedin.com/in/thomasou0" target="_blank" rel="noopener" class="btn-brutal ghost">LinkedIn</a>
-        <a href="https://thomasou.com" target="_blank" rel="noopener" class="btn-brutal ghost">thomasou.com</a>
+        <a href="https://thomasou.com" target="_blank" rel="noopener" class="link-big">Personal site</a>
+        <a href="https://github.com/Smokeybear10" target="_blank" rel="noopener" class="link-big">GitHub</a>
+        <a href="https://www.linkedin.com/in/thomasou0" target="_blank" rel="noopener" class="link-big">LinkedIn</a>
     </div>
 </section>
 
 
-<!-- SECTION 01 — TEAM -->
-<section class="section dark">
-    <div class="sec-num">01</div>
-    <div class="sec-head">The Team</div>
-    <div class="sec-sub">CIS 5450 : Big Data Analytics &middot; University of Pennsylvania</div>
+<!-- § 1.0 — THE TEAM -->
+<section class="spread reveal">
+    <div class="spread-head">
+        <div class="spread-num">1.0</div>
+        <div>
+            <h2 class="spread-headline">The <em>team.</em></h2>
+            <div class="spread-sub">CIS 5450 &middot; Big Data Analytics &middot; University of Pennsylvania</div>
+        </div>
+    </div>
 
-    <div class="hero-meta" style="margin-bottom: 0">
-        <div class="hero-meta-cell">
-            <div class="hm-label">&mdash; Author</div>
-            <div class="hm-value">Thomas Ou<small>site &middot; ml &middot; frontend &middot; data</small></div>
-        </div>
-        <div class="hero-meta-cell yellow">
-            <div class="hm-label">&mdash; Research Partner</div>
-            <div class="hm-value">Aakash Jha<small>feature engineering &middot; modeling</small></div>
-        </div>
-        <div class="hero-meta-cell dark">
-            <div class="hm-label">&mdash; Research Partner</div>
-            <div class="hm-value">Kevin Jiang<small>data pipeline &middot; analysis</small></div>
+    <div class="spread-body">
+        <span>&sect; roster</span>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-role">Author</div>
+                <div class="team-name">Thomas Ou</div>
+                <div class="team-note">Site, ML engineering, frontend, data pipeline.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-role">Research Partner</div>
+                <div class="team-name">Aakash Jha</div>
+                <div class="team-note">Feature engineering, model training, analysis.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-role">Research Partner</div>
+                <div class="team-name">Kevin Jiang</div>
+                <div class="team-note">Data pipeline, exploratory analysis.</div>
+            </div>
         </div>
     </div>
 </section>
 
 
-<!-- SECTION 02 — STACK -->
-<section class="section">
-    <div class="sec-num">02</div>
-    <div class="sec-head">The Stack</div>
-    <div class="sec-sub">what it&rsquo;s built on &middot; end to end</div>
+<!-- § 2.0 — HOW IT WORKS -->
+<section class="spread reveal">
+    <div class="spread-head">
+        <div class="spread-num">2.0</div>
+        <div>
+            <h2 class="spread-headline">How it <em>works.</em></h2>
+            <div class="spread-sub">from raw stats to a calibrated probability &middot; in plain english</div>
+        </div>
+    </div>
 
-    <div class="meth-two">
-        <div class="meth-block">
-            <span class="meth-label">&#9655; Backend / ML</span>
-            <ul class="meth-list">
-                <li>Python 3.11 &middot; Flask &middot; Flask-CORS</li>
-                <li>scikit-learn (LogReg, Random Forest, Gradient Boosting)</li>
-                <li>pandas &middot; numpy for feature engineering</li>
-                <li>Hosted on Vercel serverless Python</li>
-                <li>Trained on 6,582 UFC fights (2001&ndash;2024)</li>
+    <div class="spread-body">
+        <span>&sect; 2.1 &nbsp; stats</span>
+        <div class="prose">
+            <p>
+                <strong>The most important thing to understand:</strong> when you select Khabib vs. McGregor, Khabib&rsquo;s <em>5.3 takedowns per fight</em> is his average across his <strong>entire career</strong> &mdash; against Iaquinta, Barboza, Johnson, everyone. Not specifically against McGregor.
+            </p>
+            <p>
+                So the model answers: <em>&ldquo;Given how each fighter performs across all opponents, what does the gap between their profiles predict?&rdquo;</em> It&rsquo;s also what makes hypothetical matchups between fighters who never met possible.
+            </p>
+        </div>
+    </div>
+
+    <div class="spread-body" style="margin-top: 2.5rem">
+        <span>&sect; 2.2 &nbsp; features</span>
+        <div class="prose">
+            <p>
+                <strong>Differential features &mdash; it&rsquo;s about the gap.</strong> Instead of feeding raw stats for both fighters, we compute the <em>difference</em> for each stat. &ldquo;Fighter A has 5.3 takedowns/fight, Fighter B has 2.1&rdquo; becomes a single number: <strong>+3.2</strong>. This cuts our data in half and directly encodes who has the edge on each dimension.
+            </p>
+            <div class="meth-formula" style="margin: 1rem 0;"><span>diff</span> = Fighter 1&rsquo;s stat &minus; Fighter 2&rsquo;s stat</div>
+            <p>
+                Positive means Fighter 1 has the edge. Negative means Fighter 2. The pipeline produces 86 such features across <strong>striking</strong>, <strong>grappling</strong>, <strong>physical attributes</strong>, <strong>experience / momentum</strong>, and <strong>opponent quality</strong>.
+            </p>
+        </div>
+    </div>
+
+    <div class="spread-body" style="margin-top: 2.5rem">
+        <span>&sect; 2.3 &nbsp; ensemble</span>
+        <div class="prose">
+            <p>
+                <strong>Three models, one vote.</strong> Each algorithm has blind spots. Logistic regression misses complex interactions. Random forest can overfit to noise. Gradient boosting can be overconfident. By averaging all three (plus XGBoost and SVM for the extended v3.2 ensemble) we get a prediction that&rsquo;s more stable than any single model. When they all agree, trust is high. When they diverge wildly, the fight is genuinely hard to call.
+            </p>
+            <div class="meth-formula" style="margin: 1rem 0;"><span>P(win)</span> = (1 / 5) &times; &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
+        </div>
+    </div>
+
+    <div class="spread-body" style="margin-top: 2.5rem">
+        <span>&sect; 2.4 &nbsp; pipeline</span>
+        <div class="prose">
+            <p>
+                <strong>Anatomy of a prediction.</strong> When you hit <em>Run</em>, five things happen in sequence:
+            </p>
+            <ol class="numbered-list">
+                <li><span>Look up each fighter&rsquo;s most recent career-wide stats from the dataset.</span></li>
+                <li><span>Subtract Fighter 2&rsquo;s stats from Fighter 1&rsquo;s across all 86 features to get a <em>difference profile</em>.</span></li>
+                <li><span>Scale each gap relative to the training data so all features sit on the same playing field.</span></li>
+                <li><span>Five models independently return a win probability. Their mean becomes the final prediction.</span></li>
+                <li><span>The explanation engine decomposes the result into SHAP attributions, category-level edges, and nearest neighbors.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="spread-body" style="margin-top: 2.5rem">
+        <span>&sect; 2.5 &nbsp; explain</span>
+        <div class="prose">
+            <p>
+                <strong>Explaining the why.</strong> Every prediction comes with three layers of reasoning so you can judge it yourself:
+            </p>
+            <ul class="lettered-list">
+                <li><em>Key factors.</em> We decompose the ensemble mean into per-feature contributions (SHAP values). Each stat gap gets a score showing how much it pushed the prediction toward one fighter, ranked with both fighters&rsquo; raw values shown.</li>
+                <li><em>Edge analysis.</em> We group all features into four domains (striking, grappling, physical, experience) and average each group&rsquo;s contribution into a 0&ndash;100 score. 50 = dead even. Above 55 strongly favors Fighter 1. Below 45 strongly favors Fighter 2.</li>
+                <li><em>Model consensus.</em> Each classifier&rsquo;s vote is shown individually. If they line up (66%, 63%, 61%) the prediction is stable. If they diverge (70%, 45%, 55%) the fight is genuinely unpredictable and the result deserves a grain of salt.</li>
             </ul>
         </div>
-        <div class="meth-block">
-            <span class="meth-label">&#9655; Frontend / Deploy</span>
-            <ul class="meth-list">
-                <li>Vanilla HTML / CSS / JS &mdash; no framework</li>
-                <li>Archivo Black &middot; Space Grotesk &middot; Space Mono</li>
-                <li>Static assets over Vercel CDN</li>
-                <li>GitHub Actions for CI</li>
-                <li>Lighthouse 100 / 100 / 100 / 100</li>
-            </ul>
+    </div>
+
+    <div class="spread-body" style="margin-top: 2.5rem">
+        <span>&sect; 2.6 &nbsp; honesty</span>
+        <div class="prose">
+            <p>
+                <strong>How accurate is it?</strong> 68.4% on held-out 2022&ndash;2024 fights (n=1,284). For context: a random guess sits at 50%. Always picking the red corner hits 54%. Vegas closing lines sit at roughly 65&ndash;70%, with access to camp reports, injury intel, and weight-cut whispers we don&rsquo;t have. Academic ML studies on UFC consistently land in the 58&ndash;68% range.
+            </p>
+            <p>
+                <strong>The reality: MMA is chaotic.</strong> One punch can end any fight regardless of stats. 68% means the stats explain more than half the story. The rest is heart, timing, and luck.
+            </p>
         </div>
     </div>
 </section>
 
 
-<!-- SECTION 03 — REFERENCES -->
-<section class="section red" id="references">
-    <div class="sec-num">03</div>
-    <div class="sec-head">References</div>
-    <div class="sec-sub">foundational work &middot; cited in the paper</div>
+<!-- § 3.0 — THE STACK -->
+<section class="spread dark reveal">
+    <div class="dark-inner">
+        <div class="spread-head">
+            <div class="spread-num">3.0</div>
+            <div>
+                <h2 class="spread-headline">The <em>stack.</em></h2>
+                <div class="spread-sub">what it&rsquo;s built on &middot; end to end</div>
+            </div>
+        </div>
 
-    <div class="references-list">
-        <p>Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. <em>Monthly Weather Review</em>, 78(1), 1&ndash;3.</p>
-        <p>Chen, T., &amp; Guestrin, C. (2016). XGBoost: A scalable tree boosting system. <em>Proc. 22nd ACM SIGKDD</em>, 785&ndash;794.</p>
-        <p>Gneiting, T., &amp; Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. <em>JASA</em>, 102(477), 359&ndash;378.</p>
-        <p>Ke, G., et al. (2017). LightGBM: A highly efficient gradient boosting decision tree. <em>NeurIPS</em>, 30.</p>
-        <p>Lundberg, S. M., &amp; Lee, S. I. (2017). A unified approach to interpreting model predictions. <em>NeurIPS</em>, 30.</p>
-        <p>Platt, J. C. (1999). Probabilistic outputs for support vector machines. <em>Advances in Large Margin Classifiers</em>, MIT Press.</p>
+        <div class="spread-body">
+            <span>&sect; infra</span>
+            <div class="prose">
+                <div class="meth">
+                    <div class="meth-col">
+                        <div class="meth-col-label">I &mdash; Backend &amp; ML</div>
+                        <ul class="meth-list">
+                            <li><span><b>Python 3.11</b> &middot; Flask &middot; Flask-CORS</span></li>
+                            <li><span><b>scikit-learn</b> &middot; LogReg &middot; Random Forest &middot; Gradient Boosting</span></li>
+                            <li><span><b>pandas, numpy</b> for the feature pipeline</span></li>
+                            <li><span>Trained on 6,582 UFC fights (2001&ndash;2024)</span></li>
+                            <li><span>Hosted on Vercel serverless Python</span></li>
+                        </ul>
+                    </div>
+                    <div class="meth-col">
+                        <div class="meth-col-label">II &mdash; Frontend &amp; Deploy</div>
+                        <ul class="meth-list">
+                            <li><span><b>Vanilla HTML / CSS / JS</b> &mdash; no framework</span></li>
+                            <li><span>Instrument Serif &middot; Inter Tight &middot; IBM Plex Mono</span></li>
+                            <li><span>Static assets over Vercel CDN</span></li>
+                            <li><span>GitHub Actions for CI</span></li>
+                            <li><span>No tracking, no analytics, no trackers</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+
+<!-- § 4.0 — REFERENCES -->
+<section class="spread reveal" id="references">
+    <div class="spread-head">
+        <div class="spread-num">4.0</div>
+        <div>
+            <h2 class="spread-headline"><em>References.</em></h2>
+            <div class="spread-sub">cited in the paper &middot; prior work we built on</div>
+        </div>
+    </div>
+
+    <div class="spread-body">
+        <span>&sect; cited</span>
+        <ol class="refs">
+            <li>Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. <em>Monthly Weather Review</em>, 78(1), 1&ndash;3.</li>
+            <li>Breiman, L. (2001). Random Forests. <em>Machine Learning</em>, 45(1), 5&ndash;32.</li>
+            <li>Chen, T., &amp; Guestrin, C. (2016). XGBoost: A scalable tree boosting system. <em>Proc. 22nd ACM SIGKDD</em>, 785&ndash;794.</li>
+            <li>Cox, D. R. (1958). The regression analysis of binary sequences. <em>JRSS: Series B</em>, 20(2), 215&ndash;232.</li>
+            <li>Dietterich, T. G. (2000). Ensemble methods in machine learning. <em>Multiple Classifier Systems</em>, 1857, 1&ndash;15.</li>
+            <li>Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>Annals of Statistics</em>, 29(5), 1189&ndash;1232.</li>
+            <li>Gneiting, T., &amp; Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. <em>JASA</em>, 102(477), 359&ndash;378.</li>
+            <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning</em>. Springer.</li>
+            <li>Ke, G., et al. (2017). LightGBM: A highly efficient gradient boosting decision tree. <em>NeurIPS</em>, 30.</li>
+            <li>Lundberg, S. M., &amp; Lee, S. I. (2017). A unified approach to interpreting model predictions. <em>NeurIPS</em>, 30.</li>
+            <li>Pedregosa, F. et al. (2011). Scikit-learn: Machine learning in Python. <em>JMLR</em>, 12, 2825&ndash;2830.</li>
+            <li>Platt, J. C. (1999). Probabilistic outputs for support vector machines. <em>Advances in Large Margin Classifiers</em>. MIT Press.</li>
+        </ol>
+    </div>
+</section>
+
+
+<!-- COLOPHON -->
+<aside class="colophon">
+    <span class="colophon-tag">&sect; contact</span>
+    <div class="colophon-body">
+        <p>Built 2025&ndash;26 for CIS 5450 at the University of Pennsylvania. If you want to work on something, argue about a prediction, or tell me what&rsquo;s wrong with the model, <a href="https://thomasou.com">thomasou.com</a> or GitHub.</p>
+    </div>
+</aside>
 
 
 <!-- FOOTER -->
-<footer class="footer-brutal">
-    <div class="footer-grid">
-        <div>
-            <div class="footer-brand">V3RSUS<br>RESEARCH</div>
-            <div class="footer-tag">Ensemble machine learning for MMA prediction &middot; built for CIS 5450 @ Penn &middot; 6,582 UFC fights &middot; 2001&ndash;2024.</div>
-        </div>
-        <div>
-            <h5>Paper</h5>
-            <a href="/">Home</a>
-            <a href="predict.html">Predictor</a>
-            <a href="methodology.html">Methodology</a>
-        </div>
-        <div>
-            <h5>Build</h5>
-            <a href="https://github.com/Smokeybear10">Source</a>
-            <a href="https://thomasou.com">Thomas Ou</a>
-            <a href="https://linkedin.com/in/thomasou0">LinkedIn</a>
-        </div>
+<footer>
+    <div>
+        <b>V3RSUS</b> &middot; 2026 &middot; Thomas Ou &middot; Aakash Jha &middot; Kevin Jiang
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="predict.html">Predictor</a>
+        <a href="https://github.com/Smokeybear10">GitHub</a>
     </div>
 </footer>
 

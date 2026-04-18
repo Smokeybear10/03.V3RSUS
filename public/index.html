@@ -3,209 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V3RSUS // MMA Predictive Analytics</title>
+    <title>V3RSUS — Predicting UFC Fight Outcomes</title>
     <meta name="description" content="Ensemble machine learning engine predicting UFC fight outcomes on 6,582 fights across 86 engineered features.">
     <link rel="canonical" href="https://v3rsus.vercel.app/">
-    <meta property="og:title" content="V3RSUS // MMA Analytics">
+    <meta property="og:title" content="V3RSUS — MMA Predictive Analytics">
     <meta property="og:description" content="Ensemble machine learning engine predicting UFC fight outcomes on 6,582 fights across 86 engineered features.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://v3rsus.vercel.app/">
     <meta property="og:site_name" content="V3RSUS">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="home.css">
+    <script src="scroll-anim.js" defer></script>
 </head>
 <body>
 
-<!-- TOP STATUS BAR -->
-<div class="topbar">
-    <span><span class="live-dot"></span>V3RSUS//RESEARCH &middot; VOL. 3 &middot; NO. 2 &middot; APR 2026</span>
-    <span>
-        <a href="/">HOME</a>
-        &middot;
-        <a href="predict.html">PREDICTOR</a>
-        &middot;
-        <a href="methodology.html">METHODOLOGY</a>
-        &middot;
-        <a href="about.html">ABOUT</a>
-    </span>
-</div>
+<!-- MASTHEAD -->
+<header class="mast">
+    <a href="/" class="mast-brand">V3RSUS</a>
+    <nav class="mast-nav">
+        <a href="/" class="current">Home</a>
+        <a href="predict.html">Predictor</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
 
 
-<!-- HERO: PAPER TITLE -->
-<section class="hero-poster">
-    <span class="hero-paper-tag">Original Research <small>v3rsus.2026.04.002</small></span>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-label">
+        <span class="hero-label-sym">&sect;</span>
+        <span class="hero-label-id">0.0</span>
+        <span>Original Research Article &middot; v3rsus.2026.04.002</span>
+    </div>
 
     <h1 class="hero-title">
-        Predicting UFC<br>Fight Outcomes <em>With</em><br>Ensemble Machine<br>Learning
+        Predicting UFC<br>
+        fight outcomes <em>with</em><br>
+        ensemble machine<br>
+        learning.
     </h1>
 
-    <p class="hero-subtitle">
-        A multi-model approach combining <em>XGBoost &middot; LightGBM &middot; LogReg &middot; Random Forest &middot; SVM</em> on 86 engineered features across 6,582 professional bouts, 2001&ndash;2024.
+    <p class="hero-standfirst">
+        A multi-model classifier combining XGBoost, LightGBM, logistic regression, random forest, and SVM on <em>86 engineered features</em> across 6,582 professional bouts. We report 68.4% accuracy on a strictly held-out test window, Platt-calibrated probabilities, SHAP attributions, and every known failure mode.
     </p>
 
     <div class="hero-meta">
         <div class="hero-meta-cell">
-            <div class="hm-label">&mdash; Authors</div>
-            <div class="hm-value">Thomas Ou<sup>1</sup>, Aakash Jha<sup>1</sup></div>
-            <div class="hm-value" style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--ink-mid)"><sup>1</sup> CIS 5450 Research Project</div>
+            <div class="hm-label">Authors</div>
+            <div class="hm-value">Thomas Ou <em>&amp;</em> Aakash Jha<small>CIS 5450 &middot; University of Pennsylvania</small></div>
         </div>
-        <div class="hero-meta-cell yellow">
-            <div class="hm-label">&mdash; Timeline</div>
-            <div class="hm-value">Received<small>November 2025</small></div>
+        <div class="hero-meta-cell">
+            <div class="hm-label">Submitted</div>
+            <div class="hm-value">November <em>&lsquo;25</em><small>Revised April 2026 &middot; Model v3.2</small></div>
         </div>
-        <div class="hero-meta-cell dark">
-            <div class="hm-label">&mdash; Build</div>
-            <div class="hm-value">Model v3.2<small>Revised April 2026</small></div>
+        <div class="hero-meta-cell">
+            <div class="hm-label">Corpus</div>
+            <div class="hm-value">6,582 <em>fights</em><small>UFC &middot; 2001&ndash;2024 &middot; 2,112 fighters</small></div>
         </div>
     </div>
 
     <div class="hero-actions">
-        <a href="predict.html" class="btn-brutal">Interactive Predictor &rarr;</a>
-        <a href="#methodology" class="btn-brutal ghost">Methodology</a>
-        <a href="about.html#references" class="btn-brutal ghost">References</a>
+        <a href="predict.html" class="link-big">Run the interactive predictor</a>
+        <a href="about.html" class="link-big">About &amp; methodology</a>
+        <a href="about.html#references" class="link-big">References</a>
     </div>
 </section>
 
 
-<!-- KEY FIGURES BAND -->
-<div class="keyfig-band">
-    <div class="keyfig-grid">
-        <div class="kf"><span class="kf-val">68.4%</span><span class="kf-label">Accuracy</span></div>
-        <div class="kf"><span class="kf-val">6,582</span><span class="kf-label">Fights</span></div>
-        <div class="kf"><span class="kf-val">86</span><span class="kf-label">Features</span></div>
-        <div class="kf"><span class="kf-val">0.218</span><span class="kf-label">Brier</span></div>
-        <div class="kf"><span class="kf-val">5</span><span class="kf-label">Models</span></div>
+<!-- ABSTRACT -->
+<section class="spread reveal">
+    <div class="spread-head">
+        <div class="spread-num">0.1</div>
+        <div>
+            <h2 class="spread-headline">Abstract.</h2>
+            <div class="spread-sub">tl;dr &middot; what we built &middot; what it costs</div>
+        </div>
     </div>
-</div>
 
-
-<!-- SECTION 00 — ABSTRACT -->
-<section class="section">
-    <div class="sec-num">00</div>
-    <div class="sec-head">Abstract</div>
-    <div class="sec-sub">tl;dr &middot; what we built &middot; what it does &middot; what it costs</div>
-
-    <div class="abstract-card">
-        <p>
-            We present an ensemble classifier for predicting Ultimate Fighting Championship bout outcomes. The system combines five independently trained models &mdash; <strong>XGBoost, LightGBM, logistic regression, random forest, and support vector machine</strong> &mdash; using equal-weight averaging with Platt calibration. The training corpus comprises <strong>6,582 fights</strong> spanning 2001&ndash;2024, with <strong>86 engineered features</strong> per fighter pair, including striking efficiency, grappling rates, recent form momentum, strength of schedule, and physical attributes. All rate statistics use 5-year exponentially decayed rolling averages (&lambda; = 0.3). On a strictly held-out test set of 1,284 fights (2022&ndash;2024), the ensemble achieves <span class="metric">68.4%</span> classification accuracy, a Brier score of <span class="metric">0.218</span>, log loss of <span class="metric">0.614</span>, and AUC-ROC of <span class="metric">0.724</span>. Each prediction includes 95% bootstrap confidence intervals and SHAP-based feature attribution. We report all results transparently, including calibration analysis, failure modes, and known limitations.
-        </p>
-        <div class="keywords">
-            <span class="keywords-label">Keywords &rarr;</span>
-            <span class="keyword-pill">MMA</span>
-            <span class="keyword-pill">Ensemble Learning</span>
-            <span class="keyword-pill">Gradient Boosting</span>
-            <span class="keyword-pill">SHAP</span>
-            <span class="keyword-pill">Calibration</span>
-            <span class="keyword-pill">Sports Analytics</span>
+    <div class="abstract">
+        <span class="abstract-tag">&sect; text</span>
+        <div>
+            <p class="abstract-body">
+                We present an ensemble classifier for predicting Ultimate Fighting Championship bout outcomes. The system combines five independently trained models &mdash; <strong>XGBoost, LightGBM, logistic regression, random forest, and support vector machine</strong> &mdash; using equal-weight averaging with Platt calibration. The training corpus comprises <strong>6,582 fights</strong> spanning 2001&ndash;2024, with <strong>86 engineered features</strong> per fighter pair including striking efficiency, grappling rates, recent form momentum, strength of schedule, and physical attributes. All rate statistics use 5-year exponentially decayed rolling averages (&lambda; = 0.3). On a strictly held-out test set of 1,284 fights (2022&ndash;2024), the ensemble achieves <span class="metric">68.4%</span> classification accuracy, a Brier score of <span class="metric">0.218</span>, log loss of <span class="metric">0.614</span>, and AUC-ROC of <span class="metric">0.724</span>. Each prediction includes 95% bootstrap confidence intervals and SHAP-based feature attribution. We report all results transparently, including calibration analysis, failure modes, and known limitations.
+            </p>
+            <div class="keywords">
+                <span class="keywords-label">Keywords</span>
+                <span class="keyword-pill">mixed martial arts</span>
+                <span class="keyword-pill">ensemble learning</span>
+                <span class="keyword-pill">gradient boosting</span>
+                <span class="keyword-pill">SHAP explainability</span>
+                <span class="keyword-pill">model calibration</span>
+                <span class="keyword-pill">sports analytics</span>
+            </div>
         </div>
     </div>
 </section>
 
 
-<!-- SECTION 01 — MODEL PERFORMANCE -->
-<section class="section dark">
-    <div class="sec-num">01</div>
-    <div class="sec-head">Model Performance</div>
-    <div class="sec-sub">held-out test set &middot; 2022&ndash;2024 &middot; n=1,284 &middot; zero leakage</div>
-
-    <div class="sec-body">
-        We evaluate performance on a strictly held-out test set of 1,284 fights from January 2022 through December 2024. <strong>No information from this period was used during feature engineering, hyperparameter tuning, or training.</strong> We report four complementary metrics, following Brier (1950) and Gneiting &amp; Raftery (2007) for probabilistic forecast evaluation.<sup>1</sup>
-    </div>
-
-    <div class="perf-inline">
-        <div class="pi"><span class="pi-val">68.4%</span><span class="pi-label">Accuracy</span><span class="pi-sub">correct picks</span></div>
-        <div class="pi"><span class="pi-val">0.218</span><span class="pi-label">Brier</span><span class="pi-sub">lower = better</span></div>
-        <div class="pi"><span class="pi-val">0.724</span><span class="pi-label">AUC-ROC</span><span class="pi-sub">discrimination</span></div>
-        <div class="pi"><span class="pi-val">0.614</span><span class="pi-label">Log Loss</span><span class="pi-sub">prob. quality</span></div>
-    </div>
-
-    <div class="sec-body">
-        <strong>Calibration.</strong> A well-calibrated model produces predicted probabilities that match observed win rates. Figure 1 shows the calibration plot across five confidence buckets. The <strong>70&ndash;80% bucket shows near-perfect calibration at 71.2%</strong>. The model exhibits slight overconfidence above 90%, consistent with limited sample sizes at extreme confidence levels (n=86).
-    </div>
-
-    <div class="cal-poster">
-        <div class="cal-col"><div class="num">55%</div><div class="fill" style="height:55%"></div><div class="range">0.5&ndash;0.6</div></div>
-        <div class="cal-col"><div class="num">63%</div><div class="fill" style="height:63%"></div><div class="range">0.6&ndash;0.7</div></div>
-        <div class="cal-col hi"><div class="num">71%</div><div class="fill" style="height:71%"></div><div class="range">0.7&ndash;0.8 &larr;</div></div>
-        <div class="cal-col"><div class="num">78%</div><div class="fill" style="height:78%"></div><div class="range">0.8&ndash;0.9</div></div>
-        <div class="cal-col"><div class="num">84%</div><div class="fill" style="height:84%"></div><div class="range">0.9&ndash;1.0</div></div>
-    </div>
-    <div class="fig-caption">Figure 1 &mdash; Calibration plot (holdout, n=1,284). Bar height = observed win rate. Highlighted bucket (70&ndash;80%) contains the majority of actionable predictions.</div>
-</section>
-
-
-<!-- SECTION 02 — METHODOLOGY -->
-<section class="section" id="methodology">
-    <div class="sec-num">02</div>
-    <div class="sec-head">Methodology</div>
-    <div class="sec-sub">86 engineered features &middot; 5 categories &middot; &lambda;=0.3 exponential decay</div>
-
-    <div class="sec-body">
-        The feature pipeline produces 86 features per fighter pair across five categories: <strong>striking efficiency</strong> (21), <strong>grappling rates</strong> (14), <strong>physical attributes</strong> (8), <strong>experience and momentum</strong> (18), and <strong>opponent quality</strong> metrics (25). All rate statistics use exponentially decayed rolling averages (Eq. 1), weighting recent fights more heavily.<sup>2</sup>
-    </div>
-
-    <div class="meth-two">
-        <div class="meth-block">
-            <span class="meth-label">&#9655; Architecture</span>
-            <ul class="meth-list">
-                <li>XGBoost &mdash; &eta;=0.1 &middot; depth=6 &middot; 500 rounds</li>
-                <li>LightGBM &mdash; lr=0.05 &middot; 31 leaves</li>
-                <li>Logistic Regression &mdash; L2 &middot; C=1.0</li>
-                <li>Random Forest &mdash; 500 trees &middot; depth=12</li>
-                <li>SVM &mdash; RBF kernel &middot; C=10 &middot; &gamma;=auto</li>
-            </ul>
-            <div class="meth-formula">Eq. 1 &rarr; w(t) = e<sup>&minus;&lambda;t</sup>, &lambda; = 0.3</div>
-            <div class="meth-formula">Eq. 2 &rarr; P(win) = (1/5) &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
+<!-- METRICS BAND -->
+<section class="spread reveal">
+    <div class="metrics">
+        <div class="metrics-tag">&sect; Holdout<br>n &#8201;=&#8201; 1,284</div>
+        <div class="metrics-grid">
+            <div class="metric-cell">
+                <div class="metric-val"><em>68.4</em>%</div>
+                <div class="metric-label">Accuracy</div>
+                <div class="metric-sub">correct winner calls</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-val">0.218</div>
+                <div class="metric-label">Brier Score</div>
+                <div class="metric-sub">lower is better</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-val">0.724</div>
+                <div class="metric-label">AUC&ndash;ROC</div>
+                <div class="metric-sub">discrimination</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-val">0.614</div>
+                <div class="metric-label">Log Loss</div>
+                <div class="metric-sub">probability quality</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-val">5</div>
+                <div class="metric-label">Classifiers</div>
+                <div class="metric-sub">equal-weight ensemble</div>
+            </div>
         </div>
-        <div class="meth-block">
-            <span class="meth-label">&#9655; Known Failure Modes</span>
-            <ul class="meth-list">
-                <li>No injury or training camp data available</li>
-                <li>Weight cut quality is unobservable</li>
-                <li>Stylistic matchup nuance only partially captured</li>
-                <li>Small sample at extreme confidence (&gt;90%)</li>
-                <li>Does not model in-fight adjustments</li>
-                <li>No accounting for judging tendencies</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="sec-body">
-        Probability calibration uses Platt scaling on a validation fold. Feature attribution uses SHAP values from the ensemble mean. The full methodology, including hyperparameter search space, feature correlation analysis, and cross-validation results, is available in the <a href="methodology.html">extended paper</a>.
     </div>
 </section>
 
 
-<!-- FOOTNOTES -->
-<div class="footnotes">
-    <span class="footnotes-label">&mdash; Footnotes</span>
-    <p><sup>1</sup> All results on held-out data (2022&ndash;2024, n=1,284). Training period: 2001&ndash;2021. No data leakage.</p>
-    <p><sup>2</sup> w(t) is the weight for a fight t bouts ago. Recent fights receive exponentially more weight, with &lambda;=0.3 producing a half-life of approximately 2.3 fights.</p>
-</div>
+<!-- SECTION 1 — MODEL PERFORMANCE -->
+<section class="spread dark reveal">
+    <div class="dark-inner">
+        <div class="spread-head">
+            <div class="spread-num">1.0</div>
+            <div>
+                <h2 class="spread-headline">Model <em>performance.</em></h2>
+                <div class="spread-sub">held-out test set &middot; 2022&ndash;2024 &middot; n = 1,284 &middot; zero leakage</div>
+            </div>
+        </div>
+
+        <div class="spread-body">
+            <span>&sect; 1.1 &nbsp; results</span>
+            <div class="prose">
+                <p>
+                    We evaluate performance on a strictly held-out test set of 1,284 fights from January 2022 through December 2024. <strong>No information from this period was used during feature engineering, hyperparameter tuning, or training.</strong> We report four complementary metrics, following Brier (1950) and Gneiting &amp; Raftery (2007) for probabilistic forecast evaluation.<sup>1</sup>
+                </p>
+                <p>
+                    <strong>Calibration.</strong> A well-calibrated model produces predicted probabilities that match observed win rates. The <em>70&ndash;80% confidence bucket</em> shows near-perfect calibration at 71.2%. The model exhibits slight overconfidence above 90%, consistent with limited sample sizes at extreme levels (n=86).
+                </p>
+
+                <div class="chart">
+                    <div class="chart-frame dark-chart">
+                        <div class="chart-grid">
+                            <span>100</span>
+                            <span>&nbsp;80</span>
+                            <span>&nbsp;60</span>
+                            <span>&nbsp;40</span>
+                            <span>&nbsp;20</span>
+                        </div>
+                        <svg class="chart-line" viewBox="0 0 500 200" preserveAspectRatio="none">
+                            <line x1="0" y1="200" x2="500" y2="0" stroke="rgba(239,234,221,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+                            <polyline
+                                points="50,90 150,74 250,58 350,44 450,32"
+                                fill="none"
+                                stroke="#efeadd"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"/>
+                        </svg>
+                        <div class="chart-dots">
+                            <div class="chart-dot" style="left:10%;bottom:54.8%"></div>
+                            <div class="chart-dot" style="left:30%;bottom:63.1%"></div>
+                            <div class="chart-dot hi" style="left:50%;bottom:71.2%"></div>
+                            <div class="chart-dot" style="left:70%;bottom:78.4%"></div>
+                            <div class="chart-dot" style="left:90%;bottom:84.2%"></div>
+                        </div>
+                    </div>
+                    <div class="chart-xlabels">
+                        <span>50&ndash;60</span>
+                        <span>60&ndash;70</span>
+                        <span class="hi">70&ndash;80</span>
+                        <span>80&ndash;90</span>
+                        <span>90&ndash;100</span>
+                    </div>
+                </div>
+
+                <div class="fig-caption">
+                    <b>Figure 1.</b> Calibration plot on held-out set (n=1,284). Dots are observed win rates for predictions in each confidence bucket; the dashed line is perfect calibration. The highlighted 70&ndash;80% bucket sits at <b>71.2%</b>, within a single percentage point of perfect.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 2 — METHODOLOGY -->
+<section class="spread reveal" id="methodology">
+    <div class="spread-head">
+        <div class="spread-num">2.0</div>
+        <div>
+            <h2 class="spread-headline">Methodology.</h2>
+            <div class="spread-sub">86 features &middot; 5 categories &middot; &lambda;=0.3 exponential decay</div>
+        </div>
+    </div>
+
+    <div class="spread-body">
+        <span>&sect; 2.1 &nbsp; features</span>
+        <div class="prose">
+            <p>
+                The feature pipeline produces 86 features per fighter pair across five categories: <strong>striking efficiency</strong> (21), <strong>grappling rates</strong> (14), <strong>physical attributes</strong> (8), <strong>experience and momentum</strong> (18), and <strong>opponent quality</strong> (25). All rate statistics use exponentially decayed rolling averages, weighting recent fights more heavily.<sup>2</sup>
+            </p>
+
+            <div class="meth">
+                <div class="meth-col">
+                    <div class="meth-col-label">I &mdash; Architecture</div>
+                    <ul class="meth-list">
+                        <li><span><b>XGBoost</b> &mdash; &eta;=0.1, depth=6, 500 rounds</span></li>
+                        <li><span><b>LightGBM</b> &mdash; lr=0.05, 31 leaves</span></li>
+                        <li><span><b>Logistic Regression</b> &mdash; L2, C=1.0</span></li>
+                        <li><span><b>Random Forest</b> &mdash; 500 trees, depth=12</span></li>
+                        <li><span><b>SVM</b> &mdash; RBF kernel, C=10, &gamma;=auto</span></li>
+                    </ul>
+                    <div class="meth-formula"><span>w(t)</span> = e<sup>&minus;&lambda;t</sup>,&nbsp;&nbsp; &lambda; = 0.3</div>
+                    <div class="meth-formula"><span>P(win)</span> = (1/5) &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
+                </div>
+                <div class="meth-col">
+                    <div class="meth-col-label">II &mdash; Known Failure Modes</div>
+                    <ul class="meth-list">
+                        <li><span>No injury or training camp data available</span></li>
+                        <li><span>Weight cut quality is unobservable</span></li>
+                        <li><span>Stylistic matchup nuance only partially captured</span></li>
+                        <li><span>Small sample size at extreme confidence (&gt;90%)</span></li>
+                        <li><span>Does not model in-fight adjustments</span></li>
+                        <li><span>No accounting for judging tendencies</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem">
+                Probability calibration uses Platt scaling on a validation fold. Feature attribution uses SHAP values from the ensemble mean. The <a href="about.html#2.0">full methodology breakdown</a> walks through the pipeline end to end.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- COLOPHON / NOTES -->
+<aside class="colophon">
+    <span class="colophon-tag">&sect; Notes</span>
+    <div class="colophon-body">
+        <p><sup>1</sup> All results on held-out data (2022&ndash;2024, n=1,284). Training period: 2001&ndash;2021. No data leakage.</p>
+        <p><sup>2</sup> w(t) is the weight for a fight <em>t</em> bouts ago. Recent fights receive exponentially more weight, with &lambda;=0.3 producing a half-life of approximately 2.3 fights.</p>
+    </div>
+</aside>
 
 
 <!-- FOOTER -->
-<footer class="footer-brutal">
-    <div class="footer-grid">
-        <div>
-            <div class="footer-brand">V3RSUS<br>RESEARCH</div>
-            <div class="footer-tag">Ensemble machine learning for MMA prediction &middot; built for CIS 5450 @ Penn &middot; 6,582 UFC fights &middot; 2001&ndash;2024.</div>
-        </div>
-        <div>
-            <h5>Paper</h5>
-            <a href="predict.html">Predictor</a>
-            <a href="methodology.html">Methodology</a>
-            <a href="about.html">About</a>
-        </div>
-        <div>
-            <h5>Build</h5>
-            <a href="https://github.com/Smokeybear10">Source</a>
-            <a href="https://thomasou.com">Thomas Ou</a>
-            <a href="https://linkedin.com/in/thomasou0">LinkedIn</a>
-        </div>
+<footer>
+    <div>
+        <b>V3RSUS</b> &middot; 2026 &middot; Built for CIS 5450, University of Pennsylvania
+    </div>
+    <div>
+        <a href="predict.html">Predictor</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/Smokeybear10">GitHub</a>
     </div>
 </footer>
 
