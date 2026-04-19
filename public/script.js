@@ -79,12 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (matches.length > 0) {
                 listEl.classList.remove("hidden");
                 inputEl.setAttribute("aria-expanded", "true");
+                const needle = val.toLowerCase();
                 matches.forEach(match => {
                     const li = document.createElement("li");
                     li.setAttribute("role", "option");
                     li.setAttribute("aria-selected", "false");
-                    const regex = new RegExp(`(${val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-                    li.innerHTML = match.replace(regex, "<strong>$1</strong>");
+                    const idx = match.toLowerCase().indexOf(needle);
+                    if (idx >= 0) {
+                        li.appendChild(document.createTextNode(match.slice(0, idx)));
+                        const strong = document.createElement("strong");
+                        strong.textContent = match.slice(idx, idx + needle.length);
+                        li.appendChild(strong);
+                        li.appendChild(document.createTextNode(match.slice(idx + needle.length)));
+                    } else {
+                        li.textContent = match;
+                    }
                     li.addEventListener("click", () => selectItem(match));
                     listEl.appendChild(li);
                 });
