@@ -50,6 +50,16 @@ a:hover { color: var(--ink); }
 
 ::selection { background: var(--accent); color: var(--paper); }
 
+:focus { outline: none; }
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+input:focus-visible, textarea:focus-visible {
+    outline-offset: 2px;
+}
+
 
 /* ---- MASTHEAD ---- */
 .mast {
