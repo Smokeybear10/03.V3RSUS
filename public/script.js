@@ -164,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fighter1 = f1Input.value.trim();
         const fighter2 = f2Input.value.trim();
         if (!fighter1 || !fighter2) { alert("Please select both fighters."); return; }
+        if (fighter1.toLowerCase() === fighter2.toLowerCase()) { alert("Pick two different fighters."); return; }
 
         const started = Date.now();
 
