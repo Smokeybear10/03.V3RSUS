@@ -141,15 +141,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnText = document.querySelector(".btn-text");
     const loader = document.querySelector(".loader");
 
+    const LOADING_STEPS = [
+        "loading fighter profiles",
+        "building 86-feature vector",
+        "standardizing against training set",
+        "xgboost voting",
+        "lightgbm voting",
+        "logistic regression voting",
+        "random forest voting",
+        "svm voting",
+        "averaging ensemble",
+        "platt-scaling probabilities",
+        "computing shap attribution",
+        "finding nearest neighbors",
+        "finalizing odds",
+    ];
+    const MIN_LOAD_MS = 2000;
+    const predictionEl = document.getElementById("prediction-top");
+    const loadingStatusEl = document.getElementById("loading-status");
+
     matchBtn.addEventListener("click", () => {
         const fighter1 = f1Input.value.trim();
         const fighter2 = f2Input.value.trim();
         if (!fighter1 || !fighter2) { alert("Please select both fighters."); return; }
 
+        const started = Date.now();
+
         resultSec.classList.add("hidden");
         btnText.classList.add("hidden");
         loader.classList.remove("hidden");
         matchBtn.disabled = true;
+        predictionEl.classList.add("loading");
+
+        // Scroll the prediction strip into view so the status line is visible
+        predictionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        // Cycle loading status, restart tick animation on each change
+        let stepIdx = 0;
+        if (loadingStatusEl) loadingStatusEl.textContent = LOADING_STEPS[0];
+        const statusTimer = setInterval(() => {
+            stepIdx = (stepIdx + 1) % LOADING_STEPS.length;
+            if (loadingStatusEl) {
+                loadingStatusEl.textContent = LOADING_STEPS[stepIdx];
+                loadingStatusEl.style.animation = "none";
+                void loadingStatusEl.offsetWidth;
+                loadingStatusEl.style.animation = "";
+            }
+        }, 190);
+
+        const finish = (cb) => {
+            const elapsed = Date.now() - started;
+            const wait = Math.max(0, MIN_LOAD_MS - elapsed);
+            setTimeout(() => {
+                clearInterval(statusTimer);
+                predictionEl.classList.remove("loading");
+                btnText.classList.remove("hidden");
+                loader.classList.add("hidden");
+                matchBtn.disabled = false;
+                cb && cb();
+            }, wait);
+        };
 
         fetch("/api/predict", {
             method: "POST",
@@ -158,14 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.error) { alert("Error: " + data.error); }
-                else { renderResults(data); }
+                if (data.error) {
+                    finish(() => alert("Error: " + data.error));
+                } else {
+                    finish(() => renderResults(data));
+                }
             })
-            .catch(err => { console.error(err); alert("Network error."); })
-            .finally(() => {
-                btnText.classList.remove("hidden");
-                loader.classList.add("hidden");
-                matchBtn.disabled = false;
+            .catch(err => {
+                console.error(err);
+                finish(() => alert("Network error."));
             });
     });
 
@@ -180,6 +232,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return suffix ? esc(val + suffix) : esc(String(val));
     }
 
+    // Convert win probability to American moneyline odds.
+    function toMoneyline(prob) {
+        if (prob >= 0.999) return "-∞";
+        if (prob <= 0.001) return "+∞";
+        if (prob >= 0.5) return "\u2212" + Math.round((100 * prob) / (1 - prob));
+        return "+" + Math.round((100 * (1 - prob)) / prob);
+    }
+
     // ---- Render Results ----
     function renderResults(data) {
         const { fighter1, fighter2, winner, f1Prob, f2Prob, f1, f2, analysis } = data;
@@ -191,6 +251,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("prob-f2-name").textContent = fighter2;
         document.getElementById("prob-f1-val").textContent = p1 + "%";
         document.getElementById("prob-f2-val").textContent = p2 + "%";
+
+        // Moneyline odds
+        const oddsEl1 = document.getElementById("odds-f1");
+        const oddsEl2 = document.getElementById("odds-f2");
+        if (oddsEl1) oddsEl1.textContent = toMoneyline(f1Prob);
+        if (oddsEl2) oddsEl2.textContent = toMoneyline(f2Prob);
 
         const f1Fill = document.getElementById("prob-f1-fill");
         const f2Fill = document.getElementById("prob-f2-fill");
@@ -213,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Win methods
         renderMethods(f1, f2);
 
-        // NEW: Analysis sections
+        // Analysis sections
         if (analysis) {
             renderKeyFactors(analysis.keyFactors, fighter1, fighter2);
             renderCategoryEdges(analysis.categories, fighter1, fighter2);
@@ -221,14 +287,16 @@ document.addEventListener("DOMContentLoaded", () => {
             renderHistorical(analysis.historicalMatchups, fighter1, fighter2);
         }
 
-        // Show results then animate
+        // Reveal result section and animate bar fill
         resultSec.classList.remove("hidden");
         setTimeout(() => {
             f1Fill.style.width = p1 + "%";
             f2Fill.style.width = p2 + "%";
         }, 80);
 
-        resultSec.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Scroll so the verdict strip sits at the top of the viewport
+        const predEl = document.getElementById("prediction-top");
+        if (predEl) predEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     // ---- Fighter Profile ----

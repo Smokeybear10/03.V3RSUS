@@ -153,7 +153,7 @@ a:hover { color: var(--ink); }
     line-height: 0.92;
     letter-spacing: -0.022em;
     color: var(--ink);
-    max-width: 11.5ch;
+    max-width: 22ch;
     margin-bottom: 1.5rem;
 }
 .hero-title em {
@@ -614,6 +614,39 @@ a:hover { color: var(--ink); }
 .spread.dark .meth-formula { background: rgba(239,234,221,0.08); color: var(--paper); }
 
 
+/* ---- INLINE SUBHEADINGS inside a .prose ---- */
+.sub-head {
+    display: block;
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 3rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+}
+.spread.dark .sub-head { color: var(--paper); border-top-color: rgba(239,234,221,0.2); }
+.sub-head:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.sub-head .tag {
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.45rem;
+}
+
+.prose .meth-formula {
+    margin: 1.25rem 0;
+}
+
+
 /* ---- TEAM GRID ---- */
 .team-grid {
     display: grid;
@@ -663,7 +696,7 @@ a:hover { color: var(--ink); }
     counter-increment: pr;
     display: grid;
     grid-template-columns: 40px 1fr;
-    gap: 1.25rem;
+    column-gap: 1.25rem;
     padding: 0.65rem 0;
     border-bottom: 1px solid var(--rule-soft);
     font-family: var(--sans);
@@ -671,28 +704,23 @@ a:hover { color: var(--ink); }
     line-height: 1.55;
     color: var(--ink-soft);
 }
+.numbered-list li > *,
+.lettered-list li > * { grid-column: 2; min-width: 0; }
 .numbered-list li:last-child,
 .lettered-list li:last-child { border-bottom: none; }
-.numbered-list li::before {
-    content: counter(pr);
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 1.6rem;
-    color: var(--accent);
-    line-height: 1;
-}
+.numbered-list li::before,
 .lettered-list li::before {
-    content: counter(pr, upper-alpha) '.';
+    grid-column: 1;
+    grid-row: 1;
     font-family: var(--display);
     font-style: italic;
-    font-size: 1.35rem;
     color: var(--accent);
     line-height: 1;
 }
-.numbered-list li span,
-.lettered-list li { color: var(--ink-soft); }
+.numbered-list li::before { content: counter(pr); font-size: 1.6rem; }
+.lettered-list li::before { content: counter(pr, upper-alpha) '.'; font-size: 1.35rem; }
 .numbered-list li em,
-.lettered-list li em { color: var(--accent); font-weight: 500; }
+.lettered-list li em { color: var(--accent); font-weight: 500; font-style: italic; }
 .numbered-list li strong,
 .lettered-list li strong { color: var(--ink); font-weight: 600; }
 
@@ -707,10 +735,8 @@ a:hover { color: var(--ink); }
 }
 .refs li {
     counter-increment: ref;
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 1.25rem;
-    padding: 1rem 0;
+    position: relative;
+    padding: 1rem 0 1rem 3rem;
     border-bottom: 1px solid var(--rule-soft);
     font-family: var(--sans);
     font-size: 0.92rem;
@@ -721,13 +747,16 @@ a:hover { color: var(--ink); }
 .refs li:last-child { border-bottom: 1px solid var(--ink); }
 .refs li::before {
     content: counter(ref);
+    position: absolute;
+    left: 0;
+    top: 0.95rem;
     font-family: var(--display);
     font-style: italic;
     font-size: 1.35rem;
     color: var(--accent);
     line-height: 1;
 }
-.refs li:hover { background: var(--paper-warm); padding-left: 0.75rem; }
+.refs li:hover { background: var(--paper-warm); padding-left: 3.75rem; }
 .refs li em { font-style: italic; font-weight: 500; color: var(--ink); }
 
 
@@ -856,7 +885,8 @@ footer a:hover { color: var(--accent); }
     .chart-frame { height: 150px; }
     footer { grid-template-columns: 1fr; }
     .team-grid { grid-template-columns: 1fr; gap: 1.75rem; }
-    .refs li { grid-template-columns: 32px 1fr; gap: 0.75rem; padding: 0.75rem 0; }
+    .refs li { padding: 0.75rem 0 0.75rem 2.25rem; }
+    .refs li::before { font-size: 1.1rem; top: 0.75rem; }
     .mast { padding: 1rem 1.5rem; }
     .mast-nav { gap: 1.1rem; font-size: 0.85rem; }
     .mast-brand { font-size: 1.2rem; }

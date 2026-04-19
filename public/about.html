@@ -40,9 +40,8 @@
     </div>
 
     <h1 class="hero-title">
-        Thomas Ou.<br>
-        <em>Fullstack</em><br>
-        engineer.
+        Thomas Ou,<br>
+        <em>fullstack</em> engineer.
     </h1>
 
     <p class="hero-standfirst">
@@ -101,45 +100,50 @@
     </div>
 
     <div class="spread-body">
-        <span>&sect; 2.1 &nbsp; stats</span>
+        <span>&sect; method</span>
         <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.1 &mdash; The stats</span>
+                Not head to head.
+            </h3>
             <p>
                 <strong>The most important thing to understand:</strong> when you select Khabib vs. McGregor, Khabib&rsquo;s <em>5.3 takedowns per fight</em> is his average across his <strong>entire career</strong> &mdash; against Iaquinta, Barboza, Johnson, everyone. Not specifically against McGregor.
             </p>
             <p>
                 So the model answers: <em>&ldquo;Given how each fighter performs across all opponents, what does the gap between their profiles predict?&rdquo;</em> It&rsquo;s also what makes hypothetical matchups between fighters who never met possible.
             </p>
-        </div>
-    </div>
 
-    <div class="spread-body" style="margin-top: 2.5rem">
-        <span>&sect; 2.2 &nbsp; features</span>
-        <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.2 &mdash; The features</span>
+                It&rsquo;s about the gap.
+            </h3>
             <p>
-                <strong>Differential features &mdash; it&rsquo;s about the gap.</strong> Instead of feeding raw stats for both fighters, we compute the <em>difference</em> for each stat. &ldquo;Fighter A has 5.3 takedowns/fight, Fighter B has 2.1&rdquo; becomes a single number: <strong>+3.2</strong>. This cuts our data in half and directly encodes who has the edge on each dimension.
+                Instead of feeding raw stats for both fighters, we compute the <em>difference</em> for each stat. &ldquo;Fighter A has 5.3 takedowns per fight, Fighter B has 2.1&rdquo; becomes a single number: <strong>+3.2</strong>. This halves the data and directly encodes who has the edge on each dimension.
             </p>
-            <div class="meth-formula" style="margin: 1rem 0;"><span>diff</span> = Fighter 1&rsquo;s stat &minus; Fighter 2&rsquo;s stat</div>
+            <div class="meth-formula"><span>diff</span> = Fighter 1&rsquo;s stat &minus; Fighter 2&rsquo;s stat</div>
             <p>
                 Positive means Fighter 1 has the edge. Negative means Fighter 2. The pipeline produces 86 such features across <strong>striking</strong>, <strong>grappling</strong>, <strong>physical attributes</strong>, <strong>experience / momentum</strong>, and <strong>opponent quality</strong>.
             </p>
-        </div>
-    </div>
 
-    <div class="spread-body" style="margin-top: 2.5rem">
-        <span>&sect; 2.3 &nbsp; ensemble</span>
-        <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.3 &mdash; The ensemble</span>
+                Three models, one vote.
+            </h3>
             <p>
-                <strong>Three models, one vote.</strong> Each algorithm has blind spots. Logistic regression misses complex interactions. Random forest can overfit to noise. Gradient boosting can be overconfident. By averaging all three (plus XGBoost and SVM for the extended v3.2 ensemble) we get a prediction that&rsquo;s more stable than any single model. When they all agree, trust is high. When they diverge wildly, the fight is genuinely hard to call.
+                Each algorithm has blind spots. Logistic regression misses complex interactions. Random forest can overfit to noise. Gradient boosting can be overconfident. By averaging all three &mdash; plus XGBoost and SVM in the extended v3.2 ensemble &mdash; we get a prediction that&rsquo;s more stable than any single model. When they all agree, trust is high. When they diverge wildly, the fight is genuinely hard to call.
             </p>
-            <div class="meth-formula" style="margin: 1rem 0;"><span>P(win)</span> = (1 / 5) &times; &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
-        </div>
-    </div>
+            <div class="meth-formula"><span>P(win)</span> = (1 / 5) &times; &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
 
-    <div class="spread-body" style="margin-top: 2.5rem">
-        <span>&sect; 2.4 &nbsp; pipeline</span>
-        <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.4 &mdash; The pipeline</span>
+                Anatomy of a prediction.
+            </h3>
             <p>
-                <strong>Anatomy of a prediction.</strong> When you hit <em>Run</em>, five things happen in sequence:
+                When you hit <em>Run</em>, five things happen in sequence:
             </p>
             <ol class="numbered-list">
                 <li><span>Look up each fighter&rsquo;s most recent career-wide stats from the dataset.</span></li>
@@ -148,32 +152,33 @@
                 <li><span>Five models independently return a win probability. Their mean becomes the final prediction.</span></li>
                 <li><span>The explanation engine decomposes the result into SHAP attributions, category-level edges, and nearest neighbors.</span></li>
             </ol>
-        </div>
-    </div>
 
-    <div class="spread-body" style="margin-top: 2.5rem">
-        <span>&sect; 2.5 &nbsp; explain</span>
-        <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.5 &mdash; The explanation</span>
+                Why, in three layers.
+            </h3>
             <p>
-                <strong>Explaining the why.</strong> Every prediction comes with three layers of reasoning so you can judge it yourself:
+                Every prediction comes with three layers of reasoning so you can judge it yourself:
             </p>
             <ul class="lettered-list">
-                <li><em>Key factors.</em> We decompose the ensemble mean into per-feature contributions (SHAP values). Each stat gap gets a score showing how much it pushed the prediction toward one fighter, ranked with both fighters&rsquo; raw values shown.</li>
-                <li><em>Edge analysis.</em> We group all features into four domains (striking, grappling, physical, experience) and average each group&rsquo;s contribution into a 0&ndash;100 score. 50 = dead even. Above 55 strongly favors Fighter 1. Below 45 strongly favors Fighter 2.</li>
-                <li><em>Model consensus.</em> Each classifier&rsquo;s vote is shown individually. If they line up (66%, 63%, 61%) the prediction is stable. If they diverge (70%, 45%, 55%) the fight is genuinely unpredictable and the result deserves a grain of salt.</li>
+                <li><span><em>Key factors.</em> We decompose the ensemble mean into per-feature contributions (SHAP values). Each stat gap gets a score showing how much it pushed the prediction toward one fighter, ranked with both fighters&rsquo; raw values shown.</span></li>
+                <li><span><em>Edge analysis.</em> We group all features into four domains (striking, grappling, physical, experience) and average each group&rsquo;s contribution into a 0&ndash;100 score. 50 = dead even. Above 55 strongly favors Fighter 1. Below 45 strongly favors Fighter 2.</span></li>
+                <li><span><em>Model consensus.</em> Each classifier&rsquo;s vote is shown individually. If they line up (66%, 63%, 61%) the prediction is stable. If they diverge (70%, 45%, 55%) the fight is genuinely unpredictable and the result deserves a grain of salt.</span></li>
             </ul>
-        </div>
-    </div>
 
-    <div class="spread-body" style="margin-top: 2.5rem">
-        <span>&sect; 2.6 &nbsp; honesty</span>
-        <div class="prose">
+
+            <h3 class="sub-head">
+                <span class="tag">&sect; 2.6 &mdash; The honest bit</span>
+                How accurate is it, really?
+            </h3>
             <p>
-                <strong>How accurate is it?</strong> 68.4% on held-out 2022&ndash;2024 fights (n=1,284). For context: a random guess sits at 50%. Always picking the red corner hits 54%. Vegas closing lines sit at roughly 65&ndash;70%, with access to camp reports, injury intel, and weight-cut whispers we don&rsquo;t have. Academic ML studies on UFC consistently land in the 58&ndash;68% range.
+                <strong>68.4%</strong> on held-out 2022&ndash;2024 fights (n=1,284). For context: a random guess sits at 50%. Always picking the red corner hits 54%. Vegas closing lines sit at roughly 65&ndash;70%, with access to camp reports, injury intel, and weight-cut whispers we don&rsquo;t have. Academic ML studies on UFC consistently land in the 58&ndash;68% range.
             </p>
             <p>
-                <strong>The reality: MMA is chaotic.</strong> One punch can end any fight regardless of stats. 68% means the stats explain more than half the story. The rest is heart, timing, and luck.
+                <strong>MMA is chaotic.</strong> One punch can end any fight regardless of stats. 68% means the stats explain more than half the story. The rest is heart, timing, and luck.
             </p>
+
         </div>
     </div>
 </section>
@@ -192,28 +197,26 @@
 
         <div class="spread-body">
             <span>&sect; infra</span>
-            <div class="prose">
-                <div class="meth">
-                    <div class="meth-col">
-                        <div class="meth-col-label">I &mdash; Backend &amp; ML</div>
-                        <ul class="meth-list">
-                            <li><span><b>Python 3.11</b> &middot; Flask &middot; Flask-CORS</span></li>
-                            <li><span><b>scikit-learn</b> &middot; LogReg &middot; Random Forest &middot; Gradient Boosting</span></li>
-                            <li><span><b>pandas, numpy</b> for the feature pipeline</span></li>
-                            <li><span>Trained on 6,582 UFC fights (2001&ndash;2024)</span></li>
-                            <li><span>Hosted on Vercel serverless Python</span></li>
-                        </ul>
-                    </div>
-                    <div class="meth-col">
-                        <div class="meth-col-label">II &mdash; Frontend &amp; Deploy</div>
-                        <ul class="meth-list">
-                            <li><span><b>Vanilla HTML / CSS / JS</b> &mdash; no framework</span></li>
-                            <li><span>Instrument Serif &middot; Inter Tight &middot; IBM Plex Mono</span></li>
-                            <li><span>Static assets over Vercel CDN</span></li>
-                            <li><span>GitHub Actions for CI</span></li>
-                            <li><span>No tracking, no analytics, no trackers</span></li>
-                        </ul>
-                    </div>
+            <div class="meth">
+                <div class="meth-col">
+                    <div class="meth-col-label">I &mdash; Backend &amp; ML</div>
+                    <ul class="meth-list">
+                        <li><span><b>Python 3.11</b> &middot; Flask &middot; Flask-CORS</span></li>
+                        <li><span><b>scikit-learn</b> &middot; LogReg &middot; Random Forest &middot; Gradient Boosting</span></li>
+                        <li><span><b>pandas</b> + <b>numpy</b> for the feature pipeline</span></li>
+                        <li><span>Trained on 6,582 UFC fights (2001&ndash;2024)</span></li>
+                        <li><span>Hosted on Vercel serverless Python</span></li>
+                    </ul>
+                </div>
+                <div class="meth-col">
+                    <div class="meth-col-label">II &mdash; Frontend &amp; Deploy</div>
+                    <ul class="meth-list">
+                        <li><span><b>Vanilla HTML / CSS / JS</b> &mdash; no framework</span></li>
+                        <li><span>Instrument Serif &middot; Inter Tight &middot; IBM Plex Mono</span></li>
+                        <li><span>Static assets over Vercel CDN</span></li>
+                        <li><span>GitHub Actions for CI</span></li>
+                        <li><span>No tracking &middot; no analytics &middot; no cookies</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -255,7 +258,7 @@
 <aside class="colophon">
     <span class="colophon-tag">&sect; contact</span>
     <div class="colophon-body">
-        <p>Built 2025&ndash;26 for CIS 5450 at the University of Pennsylvania. If you want to work on something, argue about a prediction, or tell me what&rsquo;s wrong with the model, <a href="https://thomasou.com">thomasou.com</a> or GitHub.</p>
+        <p>Source is on <a href="https://github.com/Smokeybear10" target="_blank" rel="noopener">GitHub</a>. Fork it, file issues, send PRs.</p>
     </div>
 </aside>
 

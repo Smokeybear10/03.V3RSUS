@@ -49,15 +49,17 @@
     <div class="prediction" id="prediction-top">
         <div class="pm-matchup">
             <div class="pm-side l">
-                <div class="pm-label">Red Corner</div>
+                <div class="pm-label">Red Corner &middot; implied odds</div>
                 <div class="pm-name" id="prob-f1-name">Fighter One</div>
                 <div class="pm-pct" id="prob-f1-val">&mdash;</div>
+                <div class="pm-odds" id="odds-f1">&mdash;</div>
             </div>
             <div class="pm-vs">vs.</div>
             <div class="pm-side r">
-                <div class="pm-label">Blue Corner</div>
+                <div class="pm-label">Blue Corner &middot; implied odds</div>
                 <div class="pm-name" id="prob-f2-name">Fighter Two</div>
                 <div class="pm-pct" id="prob-f2-val">&mdash;</div>
+                <div class="pm-odds" id="odds-f2">&mdash;</div>
             </div>
         </div>
 
@@ -68,8 +70,20 @@
 
         <div class="pm-winner">
             <span class="arr l" id="winner-arrow">&#9666;</span>
-            The model calls <em id="winner-name">pick a fight</em>
+            <span class="pm-winner-text">Odds favor <em id="winner-name">pick a fight</em></span>
             <span class="arr r" id="winner-arrow-r">&#9656;</span>
+        </div>
+
+        <!-- LOADING OVERLAY (active while computing) -->
+        <div class="pm-loading" aria-hidden="true">
+            <div class="pm-loading-inner">
+                <div class="pm-loading-orbit">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="pm-loading-label">&sect; &nbsp; computing the call</div>
+                <div class="pm-loading-status" id="loading-status">initializing</div>
+                <div class="pm-loading-sub">5-model ensemble &middot; 86 features &middot; Platt-calibrated</div>
+            </div>
         </div>
     </div>
 
@@ -109,174 +123,99 @@
 </section>
 
 
-<!-- RESULT SECTIONS (hidden until prediction runs) -->
-<div id="result-section" class="hidden">
+<!-- RESULT LAYOUT — sticky corner rails + main reasoning (hidden until prediction runs) -->
+<div id="result-section" class="results hidden">
+    <div class="results-layout">
 
-    <!-- A.1 — DOSSIER (fighter profiles) -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.1</div>
-            <div>
-                <h2 class="spread-headline"><em>Dossier.</em></h2>
-                <div class="spread-sub">career-weighted statistics &middot; &lambda; = 0.3 exponential decay</div>
+        <!-- RED CORNER RAIL (sticky left) -->
+        <aside class="corner-rail red">
+            <div class="rail-corner">&mdash; Red Corner</div>
+            <div class="rail-name red-text" id="profile-f1-name">&mdash;</div>
+            <div class="rail-record" id="profile-f1-record">0&ndash;0&ndash;0</div>
+            <div class="rail-tags">
+                <span class="meta-tag" id="profile-f1-stance"></span>
+                <span class="meta-tag" id="profile-f1-age"></span>
             </div>
-        </div>
-
-        <div class="spread-body">
-            <span>&sect; profiles</span>
-            <div class="dossier">
-                <div class="dossier-col">
-                    <div class="dossier-head">
-                        <div class="dossier-corner">Red Corner</div>
-                        <div class="dossier-name red-text" id="profile-f1-name">&mdash;</div>
-                        <div class="dossier-record" id="profile-f1-record">0&ndash;0&ndash;0</div>
-                        <div class="dossier-tags">
-                            <span class="meta-tag" id="profile-f1-stance"></span>
-                            <span class="meta-tag" id="profile-f1-age"></span>
-                        </div>
-                    </div>
-                    <div class="stat-grid" id="stats-f1"></div>
-                </div>
-                <div class="dossier-col">
-                    <div class="dossier-head">
-                        <div class="dossier-corner">Blue Corner</div>
-                        <div class="dossier-name blue-text" id="profile-f2-name">&mdash;</div>
-                        <div class="dossier-record" id="profile-f2-record">0&ndash;0&ndash;0</div>
-                        <div class="dossier-tags">
-                            <span class="meta-tag" id="profile-f2-stance"></span>
-                            <span class="meta-tag" id="profile-f2-age"></span>
-                        </div>
-                    </div>
-                    <div class="stat-grid" id="stats-f2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="rail-divider"></div>
+            <div class="rail-kicker">Career profile</div>
+            <div class="stat-grid rail-stats" id="stats-f1"></div>
+        </aside>
 
 
-    <!-- A.2 — HEAD TO HEAD -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.2</div>
-            <div>
-                <h2 class="spread-headline">Head to <em>head.</em></h2>
-                <div class="spread-sub">head_to_head &middot; career-weighted primary metrics</div>
-            </div>
-        </div>
+        <!-- MAIN REASONING (center, scrolls) -->
+        <main class="main-reasoning">
 
-        <div class="spread-body">
-            <span>&sect; comparison</span>
-            <div>
-                <div class="ch">
-                    <span class="l" id="edge-f1-name-dummy">Red</span>
-                    <span class="r" id="edge-f2-name-dummy">Blue</span>
-                </div>
-                <div id="comparison-rows" class="comparison-rows"></div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- A.3 — FEATURE IMPORTANCE -->
-    <section class="spread dark reveal">
-        <div class="dark-inner">
-            <div class="spread-head">
-                <div class="spread-num">A.3</div>
-                <div>
-                    <h2 class="spread-headline">Why the <em>call.</em></h2>
-                    <div class="spread-sub">SHAP attribution &middot; top-k &middot; ensemble mean</div>
-                </div>
-            </div>
-
-            <div class="spread-body">
-                <span>&sect; shap</span>
+            <!-- A.1 — WHY THE CALL (SHAP) -->
+            <article class="card reveal">
+                <header class="card-head">
+                    <span class="card-num">A.1 &middot; Why the call</span>
+                    <h3 class="card-title"><em>Top factors</em> driving it.</h3>
+                    <span class="card-sub">SHAP attribution &middot; top-k &middot; ensemble mean</span>
+                </header>
                 <div id="key-factors" class="factors-list"></div>
+            </article>
+
+            <!-- A.2 + A.3 — SIDE BY SIDE (council + edge) -->
+            <div class="card-pair">
+                <article class="card reveal">
+                    <header class="card-head">
+                        <span class="card-num">A.2 &middot; Council votes</span>
+                        <h3 class="card-title"><em>Five classifiers,</em> one mean.</h3>
+                        <span class="card-sub">per_model_probs &middot; equal-weight</span>
+                    </header>
+                    <div class="ch">
+                        <span class="l" id="models-f1-name">Red</span>
+                        <span class="r" id="models-f2-name">Blue</span>
+                    </div>
+                    <div id="model-breakdown" class="models-list"></div>
+                </article>
+
+                <article class="card reveal">
+                    <header class="card-head">
+                        <span class="card-num">A.3 &middot; Battlefield</span>
+                        <h3 class="card-title">Who owns <em>what.</em></h3>
+                        <span class="card-sub">category_scores &middot; 4 domains</span>
+                    </header>
+                    <div class="ch">
+                        <span class="l" id="edge-f1-name">Red</span>
+                        <span class="r" id="edge-f2-name">Blue</span>
+                    </div>
+                    <div id="category-edges" class="edge-list"></div>
+                </article>
             </div>
-        </div>
-    </section>
 
-
-    <!-- A.4 — EDGE ANALYSIS -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.4</div>
-            <div>
-                <h2 class="spread-headline">Who owns which <em>battlefield.</em></h2>
-                <div class="spread-sub">category_scores &middot; striking / grappling / physical / experience</div>
-            </div>
-        </div>
-
-        <div class="spread-body">
-            <span>&sect; edge</span>
-            <div>
-                <div class="ch">
-                    <span class="l" id="edge-f1-name">Red</span>
-                    <span class="r" id="edge-f2-name">Blue</span>
+            <!-- A.4 — WIN METHODS (inline strip, dark) -->
+            <article class="card reveal dark strip">
+                <header class="card-head">
+                    <span class="card-num">A.4 &middot; Finish profile</span>
+                    <h3 class="card-title">How they <em>end fights.</em></h3>
+                    <span class="card-sub">finish_modes &middot; ko &middot; sub &middot; dec</span>
+                </header>
+                <div class="method-grid">
+                    <div class="method-col" id="method-f1"></div>
+                    <div class="method-labels" id="method-labels"></div>
+                    <div class="method-col" id="method-f2"></div>
                 </div>
-                <div id="category-edges" class="edge-list"></div>
-            </div>
-        </div>
-    </section>
+            </article>
 
+            <!-- A.5 — HEAD TO HEAD -->
+            <article class="card reveal">
+                <header class="card-head">
+                    <span class="card-num">A.5 &middot; Head to head</span>
+                    <h3 class="card-title">Every stat <em>side by side.</em></h3>
+                    <span class="card-sub">career-weighted &middot; &lambda; = 0.3 exponential decay</span>
+                </header>
+                <div id="comparison-rows" class="comparison-rows"></div>
+            </article>
 
-    <!-- A.5 — MODEL CONSENSUS -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.5</div>
-            <div>
-                <h2 class="spread-headline">The council <em>votes.</em></h2>
-                <div class="spread-sub">per_model_probs &middot; 5 classifiers &middot; equal-weight ensemble</div>
-            </div>
-        </div>
-
-        <div class="spread-body">
-            <span>&sect; consensus</span>
-            <div>
-                <div class="ch">
-                    <span class="l" id="models-f1-name">Red</span>
-                    <span class="r" id="models-f2-name">Blue</span>
-                </div>
-                <div id="model-breakdown" class="models-list"></div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- A.6 — WIN METHOD DISTRIBUTION -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.6</div>
-            <div>
-                <h2 class="spread-headline">How they <em>finish.</em></h2>
-                <div class="spread-sub">finish_modes &middot; career profile &middot; ko &middot; submission &middot; decision</div>
-            </div>
-        </div>
-
-        <div class="spread-body">
-            <span>&sect; methods</span>
-            <div class="method-grid">
-                <div class="method-col" id="method-f1"></div>
-                <div class="method-labels" id="method-labels"></div>
-                <div class="method-col" id="method-f2"></div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- A.7 — CALIBRATION -->
-    <section class="spread dark reveal">
-        <div class="dark-inner">
-            <div class="spread-head">
-                <div class="spread-num">A.7</div>
-                <div>
-                    <h2 class="spread-headline">Is the model <em>honest.</em></h2>
-                    <div class="spread-sub">calibration &middot; holdout 2022&ndash;2024 &middot; n = 1,284</div>
-                </div>
-            </div>
-
-            <div class="spread-body">
-                <span>&sect; calibration</span>
-                <div>
+            <!-- A.6 + A.7 — SIDE BY SIDE (calibration dark + neighbors) -->
+            <div class="card-pair">
+                <article class="card reveal dark">
+                    <header class="card-head">
+                        <span class="card-num">A.6 &middot; Honesty</span>
+                        <h3 class="card-title">Is the model <em>calibrated.</em></h3>
+                        <span class="card-sub">holdout 2022&ndash;2024 &middot; n = 1,284</span>
+                    </header>
                     <div class="chart">
                         <div class="chart-frame dark-chart">
                             <div class="chart-grid">
@@ -302,79 +241,73 @@
                             <span>90&ndash;100</span>
                         </div>
                     </div>
-                    <div class="fig-caption">
-                        <b>Figure A1.</b> Calibration on the held-out set. Dots are observed win rates for predictions in each confidence bucket; the dashed line is perfect calibration. The current prediction&rsquo;s bucket is highlighted in accent.
+                    <div class="fig-caption"><b>Fig. A1.</b> Observed win rates vs. predicted confidence.</div>
+                </article>
+
+                <article class="card reveal">
+                    <header class="card-head">
+                        <span class="card-num">A.7 &middot; Neighbors</span>
+                        <h3 class="card-title">Closest fights <em>on record.</em></h3>
+                        <span class="card-sub">cosine_sim &ge; 0.82 &middot; 4 of 5</span>
+                    </header>
+                    <div class="hist-list compact">
+                        <div class="hist-row right">
+                            <div class="hist-matchup"><em>Adesanya &middot; Pereira II</em><small>UFC 287 &middot; sim 0.91</small></div>
+                            <div class="hist-verdict">58&ndash;42</div>
+                            <div class="hist-status">&check;</div>
+                        </div>
+                        <div class="hist-row right">
+                            <div class="hist-matchup"><em>Blachowicz &middot; Adesanya</em><small>UFC 259 &middot; sim 0.88</small></div>
+                            <div class="hist-verdict">42&ndash;58</div>
+                            <div class="hist-status">&check;</div>
+                        </div>
+                        <div class="hist-row right">
+                            <div class="hist-matchup"><em>Jones &middot; Reyes</em><small>UFC 247 &middot; sim 0.86</small></div>
+                            <div class="hist-verdict">74&ndash;26</div>
+                            <div class="hist-status">&check;</div>
+                        </div>
+                        <div class="hist-row right">
+                            <div class="hist-matchup"><em>Pereira &middot; Prochazka I</em><small>UFC 303 &middot; sim 0.84</small></div>
+                            <div class="hist-verdict">66&ndash;34</div>
+                            <div class="hist-status">&check;</div>
+                        </div>
+                        <div class="hist-row wrong">
+                            <div class="hist-matchup"><em>Whittaker &middot; Adesanya I</em><small>UFC 243 &middot; sim 0.83</small></div>
+                            <div class="hist-verdict">52&ndash;48</div>
+                            <div class="hist-status">&times;</div>
+                        </div>
                     </div>
-                </div>
+                </article>
             </div>
-        </div>
-    </section>
+
+            <!-- A.8 — DIRECT H2H (conditional) -->
+            <article class="card reveal hidden" id="history-card">
+                <header class="card-head">
+                    <span class="card-num">A.8 &middot; Direct history</span>
+                    <h3 class="card-title">They&rsquo;ve met <em>before.</em></h3>
+                    <span class="card-sub">direct_h2h &middot; recorded encounters</span>
+                </header>
+                <div id="historical-matchups" class="history-list"></div>
+            </article>
+
+        </main>
 
 
-    <!-- A.8 — SIMILAR FIGHTS -->
-    <section class="spread reveal">
-        <div class="spread-head">
-            <div class="spread-num">A.8</div>
-            <div>
-                <h2 class="spread-headline">Closest fights <em>on record.</em></h2>
-                <div class="spread-sub">cosine_sim &ge; 0.82 &middot; 86-dim feature vector &middot; model went 4 of 5</div>
+        <!-- BLUE CORNER RAIL (sticky right) -->
+        <aside class="corner-rail blue">
+            <div class="rail-corner">Blue Corner &mdash;</div>
+            <div class="rail-name blue-text" id="profile-f2-name">&mdash;</div>
+            <div class="rail-record" id="profile-f2-record">0&ndash;0&ndash;0</div>
+            <div class="rail-tags">
+                <span class="meta-tag" id="profile-f2-stance"></span>
+                <span class="meta-tag" id="profile-f2-age"></span>
             </div>
-        </div>
+            <div class="rail-divider"></div>
+            <div class="rail-kicker">Career profile</div>
+            <div class="stat-grid rail-stats" id="stats-f2"></div>
+        </aside>
 
-        <div class="spread-body">
-            <span>&sect; neighbors</span>
-            <div class="hist-list">
-                <div class="hist-row right">
-                    <div class="hist-matchup"><em>Adesanya &middot; Pereira II</em><small>UFC 287 &middot; Apr 2023 &middot; sim 0.91</small></div>
-                    <div class="hist-verdict">58&ndash;42</div>
-                    <div class="hist-status">correct</div>
-                    <div class="hist-method">KO R2</div>
-                </div>
-                <div class="hist-row right">
-                    <div class="hist-matchup"><em>Blachowicz &middot; Adesanya</em><small>UFC 259 &middot; Mar 2021 &middot; sim 0.88</small></div>
-                    <div class="hist-verdict">42&ndash;58</div>
-                    <div class="hist-status">correct</div>
-                    <div class="hist-method">DEC</div>
-                </div>
-                <div class="hist-row right">
-                    <div class="hist-matchup"><em>Jones &middot; Reyes</em><small>UFC 247 &middot; Feb 2020 &middot; sim 0.86</small></div>
-                    <div class="hist-verdict">74&ndash;26</div>
-                    <div class="hist-status">correct</div>
-                    <div class="hist-method">DEC</div>
-                </div>
-                <div class="hist-row right">
-                    <div class="hist-matchup"><em>Pereira &middot; Prochazka I</em><small>UFC 303 &middot; Jun 2024 &middot; sim 0.84</small></div>
-                    <div class="hist-verdict">66&ndash;34</div>
-                    <div class="hist-status">correct</div>
-                    <div class="hist-method">KO R2</div>
-                </div>
-                <div class="hist-row wrong">
-                    <div class="hist-matchup"><em>Whittaker &middot; Adesanya I</em><small>UFC 243 &middot; Oct 2019 &middot; sim 0.83</small></div>
-                    <div class="hist-verdict">52&ndash;48</div>
-                    <div class="hist-status">wrong</div>
-                    <div class="hist-method">KO R2</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- A.9 — DIRECT H2H (conditional, JS toggles) -->
-    <section class="spread reveal hidden" id="history-card">
-        <div class="spread-head">
-            <div class="spread-num">A.9</div>
-            <div>
-                <h2 class="spread-headline">They&rsquo;ve met <em>before.</em></h2>
-                <div class="spread-sub">direct_h2h &middot; recorded encounters between these fighters</div>
-            </div>
-        </div>
-
-        <div class="spread-body">
-            <span>&sect; history</span>
-            <div id="historical-matchups" class="history-list"></div>
-        </div>
-    </section>
-
+    </div>
 </div>
 
 
