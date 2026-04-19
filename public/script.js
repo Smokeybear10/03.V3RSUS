@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnText.classList.add("hidden");
         loader.classList.remove("hidden");
         matchBtn.disabled = true;
+        predictionEl.classList.remove("idle");
         predictionEl.classList.add("loading");
 
         // Scroll the prediction strip into view so the status line is visible
