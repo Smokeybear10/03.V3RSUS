@@ -125,9 +125,9 @@ class FightPredictor:
         return True
 
     def _load_v2_sources(self, repo_root: Path) -> None:
-        snap_path = repo_root / "data-pipeline" / "features" / "fighter_snapshots.parquet"
-        fights_path = repo_root / "data-pipeline" / "processed" / "fights.parquet"
-        events_path = repo_root / "data-pipeline" / "processed" / "events.parquet"
+        snap_path = repo_root / "data" / "fighter_snapshots.parquet"
+        fights_path = repo_root / "data" / "fights.parquet"
+        events_path = repo_root / "data" / "events.parquet"
 
         if snap_path.exists():
             self.snapshots = pd.read_parquet(snap_path)

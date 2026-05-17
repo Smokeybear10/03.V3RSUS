@@ -13,7 +13,7 @@ CORS(app)
 
 print("Initializing ML Engine...")
 predictor = FightPredictor()
-_data_path = os.path.join(_root, 'data-pipeline', 'processed', 'ufc-master-display.csv')
+_data_path = os.path.join(_root, 'data', 'ufc-master.csv')
 _v2_path = os.path.join(_root, 'data', 'model_v2.pkl')
 _legacy_path = os.path.join(_root, 'data', 'model.pkl')
 _artifact_path = _v2_path if os.path.exists(_v2_path) else _legacy_path
