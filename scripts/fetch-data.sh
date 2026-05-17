@@ -11,7 +11,7 @@ set -euo pipefail
 
 REPO="Smokeybear10/802-DATA.MMA"
 TAG="${DATA_TAG:-latest}"
-TARGET_DIR="$(cd "$(dirname "$0")/.." && pwd)/data"
+TARGET_DIR="${TARGET_DIR_OVERRIDE:-$(cd "$(dirname "$0")/.." && pwd)/data}"
 mkdir -p "$TARGET_DIR"
 
 # Resolve token

@@ -119,15 +119,17 @@ class FightPredictor:
         self.fights_df = pd.read_csv(data_path)
         self.fight_count = len(self.fights_df)
 
-        # repo_root = parent of backend/ — robust to where data lives
+        # data_dir = the same folder we just loaded the artifact from
+        data_dir = Path(artifact_path).resolve().parent
         repo_root = Path(__file__).resolve().parents[1]
-        self._load_v2_sources(repo_root)
+        self._load_v2_sources(repo_root, data_dir)
         return True
 
-    def _load_v2_sources(self, repo_root: Path) -> None:
-        snap_path = repo_root / "data" / "fighter_snapshots.parquet"
-        fights_path = repo_root / "data" / "fights.parquet"
-        events_path = repo_root / "data" / "events.parquet"
+    def _load_v2_sources(self, repo_root: Path, data_dir: Path | None = None) -> None:
+        d = data_dir or (repo_root / "data")
+        snap_path = d / "fighter_snapshots.parquet"
+        fights_path = d / "fights.parquet"
+        events_path = d / "events.parquet"
 
         if snap_path.exists():
             self.snapshots = pd.read_parquet(snap_path)

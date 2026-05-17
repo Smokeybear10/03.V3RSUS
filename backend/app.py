@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 import sys
 import os
+import subprocess
 import numpy as np
 
 _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,11 +12,25 @@ from model_engine import FightPredictor
 app = Flask(__name__, static_folder=os.path.join(_root, 'public'))
 CORS(app)
 
+# On Vercel the runtime dir is /var/task; /tmp is the only writable space.
+# Pull the data artifacts at first invocation into /tmp (or local data/ during dev).
+_IS_VERCEL = bool(os.environ.get("VERCEL"))
+_data_dir = "/tmp/v3rsus-data" if _IS_VERCEL else os.path.join(_root, 'data')
+
+if not os.path.exists(os.path.join(_data_dir, 'model_v2.pkl')):
+    print(f"Fetching data into {_data_dir}...")
+    env = os.environ.copy()
+    env["TARGET_DIR_OVERRIDE"] = _data_dir
+    subprocess.run(
+        ["bash", os.path.join(_root, "scripts", "fetch-data.sh")],
+        env=env, check=True,
+    )
+
 print("Initializing ML Engine...")
 predictor = FightPredictor()
-_data_path = os.path.join(_root, 'data', 'ufc-master.csv')
-_v2_path = os.path.join(_root, 'data', 'model_v2.pkl')
-_legacy_path = os.path.join(_root, 'data', 'model.pkl')
+_data_path = os.path.join(_data_dir, 'ufc-master.csv')
+_v2_path = os.path.join(_data_dir, 'model_v2.pkl')
+_legacy_path = os.path.join(_data_dir, 'model.pkl')
 _artifact_path = _v2_path if os.path.exists(_v2_path) else _legacy_path
 
 if os.path.exists(_artifact_path):
