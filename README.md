@@ -12,9 +12,17 @@ Ensemble machine learning engine that predicts UFC fight outcomes using career s
 
 ```bash
 pip install -r requirements.txt
+
+# Pull the trained model + lookup tables from the data repo
+# (needs a GitHub token with read access to Smokeybear10/802-DATA.MMA)
+gh auth login   # or: export GITHUB_TOKEN=...
+bash scripts/fetch-data.sh
+
 python backend/app.py
 # open http://localhost:2102
 ```
+
+Data is sourced from a separate repo: [802-DATA.MMA](https://github.com/Smokeybear10/802-DATA.MMA) — pipelines, scrapers, and ML training all live there. The fetch script downloads the latest release artifacts (model + lookup tables) into `data/`.
 
 ## What It Does
 

@@ -1,4 +1,5 @@
 {
+  "buildCommand": "bash scripts/fetch-data.sh",
   "headers": [
     {
       "source": "/(.*\\.(?:css|js|svg|ico))",
