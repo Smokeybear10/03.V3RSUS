@@ -1,0 +1,26 @@
+# Big raw data — needed for retraining, not for serving predictions
+data-pipeline/raw/
+data-pipeline/scrapers/
+
+# Feature tables — only fighter_snapshots is loaded at runtime
+data-pipeline/features/final_features.parquet
+data-pipeline/features/final_features_v2.parquet
+data-pipeline/features/final_features_v3.parquet
+data-pipeline/features/fighter_rolling.parquet
+data-pipeline/features/fighter_glicko.parquet
+
+# Processed tables — only fights + events loaded at runtime
+data-pipeline/processed/fighters.parquet
+data-pipeline/processed/rounds.parquet
+data-pipeline/processed/inventory.csv
+
+# Notebooks + research artifacts
+notebooks/
+plans/
+docs/
+
+# Local-only files
+data-pipeline/.venv/
+.DS_Store
+**/__pycache__/
+**/*.pyc

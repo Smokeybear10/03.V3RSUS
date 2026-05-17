@@ -13,7 +13,16 @@ CORS(app)
 
 print("Initializing ML Engine...")
 predictor = FightPredictor()
-success = predictor.train(os.path.join(_root, 'data', 'ufc-master.csv'))
+_data_path = os.path.join(_root, 'data-pipeline', 'processed', 'ufc-master-display.csv')
+_v2_path = os.path.join(_root, 'data', 'model_v2.pkl')
+_legacy_path = os.path.join(_root, 'data', 'model.pkl')
+_artifact_path = _v2_path if os.path.exists(_v2_path) else _legacy_path
+
+if os.path.exists(_artifact_path):
+    print(f"Loading pre-trained model from {_artifact_path}...")
+    success = predictor.load_artifact(_artifact_path, _data_path)
+else:
+    success = predictor.train(_data_path)
 
 if not success:
     print("WARNING: Model failed to initialize. Make sure data is present.")

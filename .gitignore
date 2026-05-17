@@ -1,2 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
 .venv/
+data-pipeline/.venv/
+
+# OS / local
+.DS_Store
 .gstack/
+.claude/
+
+# Large regenerable data (pull via scripts/scrapers + Kaggle CLI)
+data-pipeline/raw/
+data-pipeline/scrapers/
+
+# Intermediate features (regenerable via pipelines/pipeline.py)
+data-pipeline/features/final_features.parquet
+data-pipeline/features/final_features_v3.parquet
+data-pipeline/features/final_features_v4.parquet
+data-pipeline/features/fighter_rolling.parquet
+data-pipeline/features/fighter_glicko.parquet
+data-pipeline/processed/fighters.parquet
+data-pipeline/processed/rounds.parquet
+data-pipeline/processed/inventory.csv
+
+# Old deprecated model
+data/model.pkl
