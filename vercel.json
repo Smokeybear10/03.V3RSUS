@@ -1,4 +1,11 @@
 {
+  "buildCommand": "bash scripts/fetch-data.sh",
+  "functions": {
+    "api/index.py": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  },
   "headers": [
     {
       "source": "/(.*\\.(?:css|js|svg|ico))",
